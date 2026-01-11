@@ -15,44 +15,43 @@ export const Header: React.FC = () => {
   return (
     <header 
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled ? 'py-4 glass border-b border-white/10' : 'py-6 bg-transparent'
+        isScrolled ? 'py-4 glass border-b border-white/5 mx-4 mt-4 rounded-2xl' : 'py-8 bg-transparent'
       }`}
     >
       <div className="container mx-auto px-6 flex items-center justify-between">
-        <div className="flex items-center gap-2 group cursor-pointer">
-          <div className="bg-gradient-to-br from-indigo-500 to-purple-600 p-2 rounded-xl shadow-lg shadow-indigo-500/20 group-hover:scale-110 transition-transform">
+        <a href="/" className="flex items-center gap-3 group">
+          <div className="bg-indigo-600 p-2 rounded-lg group-hover:rotate-12 transition-transform">
             <FileCode2 className="text-white w-6 h-6" />
           </div>
           <span className="text-xl font-bold tracking-tight">
             PDFto<span className="gradient-text">Blade</span>
           </span>
-        </div>
+        </a>
 
         {/* Desktop Nav */}
-        <nav className="hidden md:flex items-center gap-8 text-sm font-medium text-slate-300">
-          <a href="#demo" className="hover:text-white transition-colors">Live Preview</a>
-          <a href="#features" className="hover:text-white transition-colors">Features</a>
-          <a href="#how-it-works" className="hover:text-white transition-colors">Workflow</a>
+        <nav className="hidden lg:flex items-center gap-10 text-sm font-semibold text-slate-400">
+          <a href="#features" className="hover:text-white transition-colors">Fitur</a>
+          <a href="#demo" className="hover:text-white transition-colors">Demo</a>
+          <a href="#how-it-works" className="hover:text-white transition-colors">Cara Kerja</a>
+          <div className="h-4 w-px bg-slate-800" />
           <a 
             href="https://github.com/nabhan-rp/pdftoblade-phpcompatibility" 
             target="_blank" 
-            className="flex items-center gap-2 px-4 py-2 rounded-full glass hover:bg-white/10 transition-colors border border-white/5"
+            className="flex items-center gap-2 hover:text-white transition-colors"
           >
-            <Github className="w-4 h-4" />
-            GitHub
+            <Github className="w-4 h-4" /> Github
           </a>
           <a 
-            href="https://bladegenerator.kopi.pw/pdftoblade/"
-            target="_blank"
-            className="px-6 py-2.5 rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-semibold hover:shadow-[0_0_20px_rgba(99,102,241,0.4)] transition-all active:scale-95"
+            href="/pdftoblade/"
+            className="px-6 py-3 rounded-xl bg-white text-slate-950 font-bold hover:bg-indigo-50 transition-all active:scale-95"
           >
-            Try Now
+            Buka Aplikasi
           </a>
         </nav>
 
         {/* Mobile Toggle */}
         <button 
-          className="md:hidden text-slate-300 hover:text-white"
+          className="lg:hidden text-slate-300"
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
         >
           {mobileMenuOpen ? <X /> : <Menu />}
@@ -61,18 +60,11 @@ export const Header: React.FC = () => {
 
       {/* Mobile Menu */}
       {mobileMenuOpen && (
-        <div className="md:hidden absolute top-full left-0 right-0 glass border-t border-white/10 animate-in fade-in slide-in-from-top-4 duration-300">
-          <div className="flex flex-col gap-4 p-6 font-medium">
-            <a href="#demo" className="text-slate-300" onClick={() => setMobileMenuOpen(false)}>Live Preview</a>
-            <a href="#features" className="text-slate-300" onClick={() => setMobileMenuOpen(false)}>Features</a>
-            <a href="#how-it-works" className="text-slate-300" onClick={() => setMobileMenuOpen(false)}>Workflow</a>
-            <a 
-              href="https://bladegenerator.kopi.pw/pdftoblade/"
-              className="py-3 rounded-xl bg-indigo-600 text-white text-center"
-              onClick={() => setMobileMenuOpen(false)}
-            >
-              Get Started
-            </a>
+        <div className="lg:hidden absolute top-full left-0 right-0 glass mt-2 mx-4 rounded-2xl border border-white/10 p-6 animate-in fade-in slide-in-from-top-4">
+          <div className="flex flex-col gap-6 font-semibold">
+            <a href="#features" onClick={() => setMobileMenuOpen(false)}>Fitur</a>
+            <a href="#demo" onClick={() => setMobileMenuOpen(false)}>Demo</a>
+            <a href="/pdftoblade/" className="py-4 bg-indigo-600 rounded-xl text-center text-white">Buka Aplikasi</a>
           </div>
         </div>
       )}

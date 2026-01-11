@@ -1,72 +1,56 @@
 
-import React, { useState } from 'react';
-import { FileText, ChevronRight, Copy, Terminal, Check } from 'lucide-react';
+import React from 'react';
+import { Terminal, Copy, Check, FileText } from 'lucide-react';
 
 export const LiveDemo: React.FC = () => {
-  const [copied, setCopied] = useState(false);
-  const codeExample = `@extends('layouts.app')
+  const [copied, setCopied] = React.useState(false);
+  const code = `@extends('layouts.app')
 
 @section('content')
-<div class="container mx-auto py-12">
-    <div class="bg-white shadow-xl rounded-lg overflow-hidden">
-        <div class="p-8 border-b">
-            <h1 class="text-3xl font-bold">{{ $title }}</h1>
-            <p class="text-gray-600">Converted from PDF Design</p>
-        </div>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 p-8">
-            {{-- Dynamic Content Area --}}
-            @foreach($items as $item)
-                <x-card :data="$item" />
-            @endforeach
-        </div>
+<section class="hero-section bg-indigo-900 text-white">
+    <div class="container mx-auto px-4 py-20">
+        <h1 class="text-5xl font-extrabold leading-tight">
+            {{ $pdf_title ?? 'Default Title' }}
+        </h1>
+        <p class="mt-6 text-lg opacity-90">
+            Auto-generated from PDF structure.
+        </p>
     </div>
-</div>
+</section>
 @endsection`;
 
-  const handleCopy = () => {
-    navigator.clipboard.writeText(codeExample);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
-  };
-
   return (
-    <div className="max-w-6xl mx-auto">
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch">
-        {/* Left: Simulated Input */}
-        <div className="flex flex-col gap-6">
-          <div className="flex-1 glass rounded-3xl p-8 border border-indigo-500/20 flex flex-col items-center justify-center text-center">
-            <div className="w-20 h-20 bg-indigo-500/20 rounded-2xl flex items-center justify-center text-indigo-400 mb-6 animate-pulse">
-              <FileText className="w-10 h-10" />
+    <div id="demo" className="py-20">
+      <div className="text-center mb-12">
+        <h3 className="text-3xl font-bold mb-2">Lihat Hasilnya</h3>
+        <p className="text-slate-400">Contoh kode Blade yang dihasilkan dari analisis PDF.</p>
+      </div>
+      
+      <div className="max-w-4xl mx-auto glass rounded-[2.5rem] p-4 border-indigo-500/20 shadow-2xl shadow-indigo-500/10">
+        <div className="bg-slate-950 rounded-[2rem] overflow-hidden border border-white/5">
+          <div className="flex items-center justify-between px-6 py-4 bg-slate-900/50 border-b border-white/5">
+            <div className="flex gap-2">
+              <div className="w-3 h-3 rounded-full bg-red-500/50" />
+              <div className="w-3 h-3 rounded-full bg-yellow-500/50" />
+              <div className="w-3 h-3 rounded-full bg-green-500/50" />
             </div>
-            <h3 className="text-2xl font-bold mb-2">Upload your PDF</h3>
-            <p className="text-slate-400 mb-8 font-inter">Drop your PDF file here to see the magic happen.</p>
-            <button className="px-8 py-3 bg-indigo-600 rounded-xl font-bold hover:bg-indigo-500 transition-colors">
-              Browse Files
-            </button>
-          </div>
-          <div className="hidden lg:flex items-center justify-center gap-4 text-indigo-500/50">
-            <ChevronRight className="w-10 h-10 animate-pulse" />
-          </div>
-        </div>
-
-        {/* Right: Simulated Code Output */}
-        <div className="glass rounded-3xl p-1 overflow-hidden flex flex-col border border-purple-500/20">
-          <div className="bg-slate-950 p-4 flex items-center justify-between border-b border-white/5">
-            <div className="flex items-center gap-2">
-              <Terminal className="w-4 h-4 text-emerald-400" />
-              <span className="text-xs font-mono text-slate-300">generated-template.blade.php</span>
+            <div className="flex items-center gap-2 text-xs font-mono text-slate-500 uppercase tracking-widest">
+              <FileText className="w-3 h-3" /> template.blade.php
             </div>
             <button 
-              onClick={handleCopy}
-              className="p-2 hover:bg-white/10 rounded-lg transition-colors flex items-center gap-2 text-xs"
+              onClick={() => {
+                navigator.clipboard.writeText(code);
+                setCopied(true);
+                setTimeout(() => setCopied(false), 2000);
+              }}
+              className="text-slate-400 hover:text-white transition-colors"
             >
               {copied ? <Check className="w-4 h-4 text-emerald-400" /> : <Copy className="w-4 h-4" />}
-              {copied ? 'Copied!' : 'Copy Code'}
             </button>
           </div>
-          <div className="flex-1 bg-slate-900/50 p-6 font-mono text-sm overflow-x-auto text-indigo-200">
-            <pre className="whitespace-pre-wrap">
-              {codeExample}
+          <div className="p-8 font-mono text-sm overflow-x-auto">
+            <pre className="text-indigo-300 leading-relaxed">
+              {code}
             </pre>
           </div>
         </div>
