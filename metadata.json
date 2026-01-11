@@ -1,5 +1,5 @@
 {
-  "name": "PDFtoBlade - Modern PDF to Laravel Blade Converter",
-  "description": "An intuitive, modern landing page for a tool that converts PDF designs into high-quality Laravel Blade templates using AI technology.",
+  "name": "PDFtoBlade - Smart Letter Template Builder",
+  "description": "Platform no-code untuk membuat template surat Laravel Blade (.blade.php) dari PDF atau melalui Editor GUI yang intuitif.",
   "requestFramePermissions": []
 }
