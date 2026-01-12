@@ -1,5 +1,5 @@
 {
-  "name": "PDFtoBlade - Smart Letter Template Builder",
-  "description": "Platform no-code untuk membuat template surat Laravel Blade (.blade.php) dari PDF atau melalui Editor GUI yang intuitif.",
+  "name": "Blade Tools Suite - Builder & Viewer",
+  "description": "Kumpulan tools untuk ekosistem Laravel Blade: Buat template surat dengan AI/GUI Editor dan render/cetak PDF langsung dari file .blade.php.",
   "requestFramePermissions": []
 }

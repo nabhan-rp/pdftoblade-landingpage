@@ -1,6 +1,6 @@
 
 import React, { useState, useEffect } from 'react';
-import { FileCode2, Menu, X, Github } from 'lucide-react';
+import { FileCode2, Menu, X, Github, Layers } from 'lucide-react';
 
 export const Header: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -20,33 +20,34 @@ export const Header: React.FC = () => {
     >
       <div className="container mx-auto px-6 flex items-center justify-between">
         <a href="/" className="flex items-center gap-3 group">
-          <div className="bg-indigo-600 p-2 rounded-lg group-hover:rotate-12 transition-transform">
-            <FileCode2 className="text-white w-6 h-6" />
+          <div className="bg-gradient-to-br from-indigo-600 to-emerald-600 p-2 rounded-lg group-hover:rotate-12 transition-transform shadow-lg">
+            <Layers className="text-white w-6 h-6" />
           </div>
           <span className="text-xl font-bold tracking-tight">
-            PDFto<span className="gradient-text">Blade</span>
+            Blade<span className="text-indigo-400">Tools</span>
           </span>
         </a>
 
         {/* Desktop Nav */}
-        <nav className="hidden lg:flex items-center gap-10 text-sm font-semibold text-slate-400">
-          <a href="#features" className="hover:text-white transition-colors">Fitur</a>
-          <a href="#demo" className="hover:text-white transition-colors">Demo</a>
+        <nav className="hidden lg:flex items-center gap-8 text-sm font-semibold text-slate-400">
+          <a href="#tools" className="hover:text-white transition-colors">Produk</a>
           <a href="#how-it-works" className="hover:text-white transition-colors">Cara Kerja</a>
           <div className="h-4 w-px bg-slate-800" />
-          <a 
-            href="https://github.com/nabhan-rp/pdftoblade-phpcompatibility" 
-            target="_blank" 
-            className="flex items-center gap-2 hover:text-white transition-colors"
-          >
-            <Github className="w-4 h-4" /> Github
-          </a>
-          <a 
-            href="/pdftoblade/"
-            className="px-6 py-3 rounded-xl bg-white text-slate-950 font-bold hover:bg-indigo-50 transition-all active:scale-95"
-          >
-            Buka Aplikasi
-          </a>
+          
+          <div className="flex gap-4">
+             <a 
+               href="/pdftoblade/"
+               className="px-5 py-2.5 rounded-xl bg-indigo-600/10 text-indigo-400 border border-indigo-500/20 hover:bg-indigo-600 hover:text-white transition-all active:scale-95"
+             >
+               PDF to Blade
+             </a>
+             <a 
+               href="/bladeviewer/"
+               className="px-5 py-2.5 rounded-xl bg-emerald-600/10 text-emerald-400 border border-emerald-500/20 hover:bg-emerald-600 hover:text-white transition-all active:scale-95"
+             >
+               Blade Viewer
+             </a>
+          </div>
         </nav>
 
         {/* Mobile Toggle */}
@@ -60,11 +61,13 @@ export const Header: React.FC = () => {
 
       {/* Mobile Menu */}
       {mobileMenuOpen && (
-        <div className="lg:hidden absolute top-full left-0 right-0 glass mt-2 mx-4 rounded-2xl border border-white/10 p-6 animate-in fade-in slide-in-from-top-4">
+        <div className="lg:hidden absolute top-full left-0 right-0 glass mt-2 mx-4 rounded-2xl border border-white/10 p-6 animate-in fade-in slide-in-from-top-4 z-50">
           <div className="flex flex-col gap-6 font-semibold">
-            <a href="#features" onClick={() => setMobileMenuOpen(false)}>Fitur</a>
-            <a href="#demo" onClick={() => setMobileMenuOpen(false)}>Demo</a>
-            <a href="/pdftoblade/" className="py-4 bg-indigo-600 rounded-xl text-center text-white">Buka Aplikasi</a>
+            <a href="#tools" onClick={() => setMobileMenuOpen(false)}>Produk</a>
+            <a href="#how-it-works" onClick={() => setMobileMenuOpen(false)}>Cara Kerja</a>
+            <hr className="border-white/10" />
+            <a href="/pdftoblade/" className="py-3 px-4 bg-indigo-600 rounded-xl text-center text-white">Buka PDF to Blade</a>
+            <a href="/bladeviewer/" className="py-3 px-4 bg-emerald-600 rounded-xl text-center text-white">Buka Blade Viewer</a>
           </div>
         </div>
       )}
