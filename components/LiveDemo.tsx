@@ -1,9 +1,11 @@
 
-import React from 'react';
-import { Terminal, Copy, Check, FileCode } from 'lucide-react';
+import React, { useState } from 'react';
+import { Terminal, Copy, Check, FileCode, FileText, Printer, Eye } from 'lucide-react';
 
 export const LiveDemo: React.FC = () => {
-  const [copied, setCopied] = React.useState(false);
+  const [activeTab, setActiveTab] = useState<'code' | 'preview'>('preview');
+  const [copied, setCopied] = useState(false);
+
   const code = `{{-- Template Surat Resmi --}}
 <div class="letter-container" style="font-family: Arial, sans-serif;">
     <div class="header text-center border-b-2 pb-4 mb-8">
@@ -32,42 +34,116 @@ export const LiveDemo: React.FC = () => {
 </div>`;
 
   return (
-    <div id="demo" className="py-20">
+    <div id="demo" className="py-24">
       <div className="text-center mb-12">
-        <h3 className="text-3xl font-bold mb-2">Hasil Kode Blade Bersih</h3>
-        <p className="text-slate-400">Kode yang dihasilkan siap digunakan langsung di aplikasi Laravel Anda.</p>
+        <h3 className="text-3xl font-bold mb-3 text-white">Simulasi Output</h3>
+        <p className="text-slate-400 max-w-2xl mx-auto">
+            Lihat perbandingan antara kode yang dihasilkan oleh <span className="text-indigo-400 font-semibold">Builder</span> dan hasil render visual oleh <span className="text-emerald-400 font-semibold">Viewer</span>.
+        </p>
       </div>
       
-      <div className="max-w-4xl mx-auto glass rounded-[2.5rem] p-4 border-indigo-500/20 shadow-2xl shadow-indigo-500/10">
-        <div className="bg-slate-950 rounded-[2rem] overflow-hidden border border-white/5">
-          <div className="flex items-center justify-between px-6 py-4 bg-slate-900/50 border-b border-white/5">
-            <div className="flex gap-2">
-              <div className="w-3 h-3 rounded-full bg-red-500/40" />
-              <div className="w-3 h-3 rounded-full bg-yellow-500/40" />
-              <div className="w-3 h-3 rounded-full bg-green-500/40" />
+      <div className="max-w-5xl mx-auto">
+        {/* Toggle Switch */}
+        <div className="flex justify-center mb-8">
+            <div className="bg-slate-900/80 backdrop-blur-md p-1.5 rounded-xl border border-white/10 inline-flex shadow-xl">
+                <button 
+                    onClick={() => setActiveTab('code')}
+                    className={`flex items-center gap-2 px-6 py-2.5 rounded-lg text-sm font-semibold transition-all duration-300 ${activeTab === 'code' ? 'bg-indigo-600 text-white shadow-lg scale-100' : 'text-slate-400 hover:text-white hover:bg-white/5 scale-95'}`}
+                >
+                    <FileCode className="w-4 h-4" /> Code Result
+                </button>
+                <button 
+                    onClick={() => setActiveTab('preview')}
+                    className={`flex items-center gap-2 px-6 py-2.5 rounded-lg text-sm font-semibold transition-all duration-300 ${activeTab === 'preview' ? 'bg-emerald-600 text-white shadow-lg scale-100' : 'text-slate-400 hover:text-white hover:bg-white/5 scale-95'}`}
+                >
+                    <Eye className="w-4 h-4" /> PDF Preview
+                </button>
             </div>
-            <div className="flex items-center gap-2 text-xs font-mono text-slate-500 uppercase tracking-widest">
-              <FileCode className="w-3 h-3" /> surat-keputusan.blade.php
+        </div>
+
+        <div className="glass rounded-[2rem] p-2 border-indigo-500/20 shadow-2xl shadow-indigo-500/10 min-h-[550px] transition-all duration-500 relative overflow-hidden">
+          
+          {activeTab === 'code' ? (
+            <div className="bg-slate-950 rounded-[1.8rem] overflow-hidden border border-white/5 h-full animate-in fade-in zoom-in-95 duration-300 shadow-inner">
+              <div className="flex items-center justify-between px-6 py-4 bg-slate-900/50 border-b border-white/5">
+                <div className="flex gap-2">
+                  <div className="w-3 h-3 rounded-full bg-red-500/40 border border-white/5" />
+                  <div className="w-3 h-3 rounded-full bg-yellow-500/40 border border-white/5" />
+                  <div className="w-3 h-3 rounded-full bg-green-500/40 border border-white/5" />
+                </div>
+                <div className="flex items-center gap-2 text-xs font-mono text-slate-500 uppercase tracking-widest">
+                  <FileCode className="w-3 h-3" /> surat-keputusan.blade.php
+                </div>
+                <button 
+                  onClick={() => {
+                    navigator.clipboard.writeText(code);
+                    setCopied(true);
+                    setTimeout(() => setCopied(false), 2000);
+                  }}
+                  className="text-slate-400 hover:text-white transition-colors p-2 rounded-lg hover:bg-white/5"
+                  title="Copy Code"
+                >
+                  {copied ? <Check className="w-4 h-4 text-emerald-400" /> : <Copy className="w-4 h-4" />}
+                </button>
+              </div>
+              <div className="p-8 font-mono text-sm overflow-x-auto">
+                <pre className="text-slate-300 leading-relaxed">
+                  <code className="text-indigo-400 font-bold">@php</code>{"\n"}
+                  <span className="text-slate-500 italic">  // Dihasilkan otomatis oleh PDFtoBlade GUI</span>{"\n"}
+                  <code className="text-indigo-400 font-bold">@endphp</code>{"\n\n"}
+                  {code}
+                </pre>
+              </div>
             </div>
-            <button 
-              onClick={() => {
-                navigator.clipboard.writeText(code);
-                setCopied(true);
-                setTimeout(() => setCopied(false), 2000);
-              }}
-              className="text-slate-400 hover:text-white transition-colors p-2 rounded-lg hover:bg-white/5"
-            >
-              {copied ? <Check className="w-4 h-4 text-emerald-400" /> : <Copy className="w-4 h-4" />}
-            </button>
-          </div>
-          <div className="p-8 font-mono text-sm overflow-x-auto">
-            <pre className="text-slate-300 leading-relaxed">
-              <code className="text-indigo-400">@php</code>{"\n"}
-              <span className="text-slate-400">  // Dihasilkan otomatis oleh PDFtoBlade GUI</span>{"\n"}
-              <code className="text-indigo-400">@endphp</code>{"\n\n"}
-              {code}
-            </pre>
-          </div>
+          ) : (
+            <div className="bg-slate-100/10 rounded-[1.8rem] p-8 flex justify-center items-start h-full overflow-hidden animate-in fade-in zoom-in-95 duration-300 relative backdrop-blur-sm">
+                {/* Mock UI Toolbar */}
+                <div className="absolute top-4 right-4 flex gap-2 z-20">
+                    <button onClick={() => alert('Simulasi: File sedang didownload...')} className="bg-emerald-600 text-white px-4 py-2 rounded-lg text-xs font-bold shadow-lg flex items-center gap-2 cursor-pointer hover:bg-emerald-500 transition-colors border border-white/10 active:scale-95">
+                        <Printer className="w-4 h-4" /> Download PDF
+                    </button>
+                </div>
+
+                {/* Paper Representation */}
+                <div className="bg-white text-slate-900 w-full max-w-[600px] aspect-[1/1.414] shadow-[0_20px_50px_rgba(0,0,0,0.5)] rounded-sm p-8 md:p-12 text-[10px] md:text-xs leading-relaxed transform md:scale-95 origin-top select-none border border-slate-200">
+                    {/* Header */}
+                    <div className="border-b-2 border-black pb-4 mb-6 text-center">
+                        <h1 className="text-lg font-bold uppercase tracking-wider mb-1">PEMERINTAH KABUPATEN INDONESIA</h1>
+                        <p className="text-slate-600 font-serif italic">Jl. Merdeka No. 45, Jakarta Pusat - Telp (021) 12345678</p>
+                    </div>
+
+                    {/* Meta */}
+                    <div className="mb-6 font-medium">
+                        <div className="flex"><span className="w-20 font-bold">Nomor</span>: 005/123/IX/2024</div>
+                        <div className="flex"><span className="w-20 font-bold">Hal</span>: Undangan Rapat Dinas</div>
+                        <div className="flex"><span className="w-20 font-bold">Tanggal</span>: 12 September 2024</div>
+                    </div>
+
+                    {/* Body */}
+                    <div className="space-y-4 text-justify mb-8 font-serif text-slate-800">
+                        <p>Dengan hormat,</p>
+                        <p>
+                            Sehubungan dengan akan diadakannya evaluasi kinerja triwulan, maka kami mengundang Bapak/Ibu untuk hadir dalam rapat yang akan diselenggarakan pada tanggal yang telah ditentukan.
+                        </p>
+                        <p>
+                            Mengingat pentingnya acara ini, dimohon kehadiran Bapak/Ibu tepat pada waktunya. Demikian undangan ini kami sampaikan, atas perhatian dan kerjasamanya kami ucapkan terima kasih.
+                        </p>
+                    </div>
+
+                    {/* Footer */}
+                    <div className="flex justify-end mt-16">
+                        <div className="text-center w-40 relative">
+                            {/* Fake Signature */}
+                            <div className="absolute top-6 left-2 w-32 h-12 border-b-2 border-indigo-500/20 rotate-[-5deg]" style={{borderRadius: '50%'}}></div>
+                            
+                            <p className="mb-16">Hormat kami,</p>
+                            <p className="font-bold underline">Dr. H. Susanto, M.Si</p>
+                            <p className="text-[10px] text-slate-500">NIP. 19800101 200501 1 001</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+          )}
         </div>
       </div>
     </div>

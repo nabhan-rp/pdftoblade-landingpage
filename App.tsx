@@ -9,12 +9,12 @@ import { Footer } from './components/Footer';
 
 const App: React.FC = () => {
   return (
-    <div className="min-h-screen selection:bg-purple-500/30">
-      {/* Background Decorative Elements */}
+    <div className="min-h-screen selection:bg-purple-500/30 relative">
+      {/* Background Decorative Elements with Animation */}
       <div className="fixed inset-0 pointer-events-none overflow-hidden -z-10">
-        <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-indigo-600/10 blur-[120px] rounded-full" />
-        <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-purple-600/10 blur-[120px] rounded-full" />
-        <div className="absolute top-[30%] right-[10%] w-[20%] h-[20%] bg-blue-600/5 blur-[80px] rounded-full" />
+        <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-indigo-600/20 blur-[120px] rounded-full animate-blob mix-blend-screen" />
+        <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-purple-600/20 blur-[120px] rounded-full animate-blob animation-delay-2000 mix-blend-screen" />
+        <div className="absolute top-[30%] right-[10%] w-[20%] h-[20%] bg-emerald-600/20 blur-[80px] rounded-full animate-blob animation-delay-4000 mix-blend-screen" />
       </div>
 
       <Header />
