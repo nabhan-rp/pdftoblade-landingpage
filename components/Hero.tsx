@@ -1,8 +1,11 @@
 
 import React from 'react';
-import { ArrowRight, PencilLine, Printer, Layout, Sparkles, FileCode } from 'lucide-react';
+import { ArrowRight, PencilLine, Printer, Sparkles } from 'lucide-react';
+import { useLanguage } from '../contexts/LanguageContext';
 
 export const Hero: React.FC = () => {
+  const { t } = useLanguage();
+
   return (
     <section className="relative pt-40 pb-24 overflow-hidden">
       {/* Background Glow */}
@@ -11,16 +14,16 @@ export const Hero: React.FC = () => {
       <div className="container mx-auto px-6 text-center">
         <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass border border-white/10 mb-10 animate-fade-in">
           <Sparkles className="w-4 h-4 text-indigo-400" />
-          <span className="text-xs font-semibold uppercase tracking-[0.2em] text-indigo-200">The Ultimate Laravel Blade Suite</span>
+          <span className="text-xs font-semibold uppercase tracking-[0.2em] text-indigo-200">{t.hero.badge}</span>
         </div>
         
         <h1 className="text-5xl md:text-7xl font-extrabold mb-8 tracking-tighter leading-[1.1] max-w-6xl mx-auto">
-          Satu Platform untuk <span className="gradient-text">Membuat</span> & <br />
-          <span className="gradient-text-green">Mencetak</span> Template Blade.
+          {t.hero.titleStart} <span className="gradient-text">{t.hero.titleCreate}</span> {t.hero.titleAnd} <br />
+          <span className="gradient-text-green">{t.hero.titlePrint}</span> {t.hero.titleEnd}
         </h1>
         
         <p className="max-w-3xl mx-auto text-xl text-slate-400 mb-12 leading-relaxed font-inter">
-          Kelola dokumen Laravel Anda dengan dua tool powerfull. <strong>Desain template</strong> surat tanpa coding, atau <strong>Render & Cetak</strong> file .blade.php menjadi PDF langsung dari browser tanpa instalasi PHP lokal.
+            {t.hero.description}
         </p>
 
         {/* Dual CTA Cards */}
@@ -34,10 +37,10 @@ export const Hero: React.FC = () => {
                 </div>
                 <h3 className="text-2xl font-bold mb-2">Blade Builder</h3>
                 <p className="text-slate-400 text-sm mb-8 min-h-[40px]">
-                    Buat template dari nol, edit file .blade.php yang ada, atau convert PDF menggunakan AI.
+                    {t.hero.cardBuilderDesc}
                 </p>
                 <a href="/pdftoblade/" className="inline-flex items-center gap-2 text-indigo-300 font-bold group-hover:text-indigo-200 transition-colors">
-                    Buka Builder <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                    {t.hero.btnBuilder} <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                 </a>
               </div>
            </div>
@@ -51,10 +54,10 @@ export const Hero: React.FC = () => {
                 </div>
                 <h3 className="text-2xl font-bold mb-2">Blade Viewer</h3>
                 <p className="text-slate-400 text-sm mb-8 min-h-[40px]">
-                    Render file .blade.php menjadi visual nyata dan ekspor ke PDF siap cetak.
+                    {t.hero.cardViewerDesc}
                 </p>
                 <a href="/bladeviewer/" className="inline-flex items-center gap-2 text-emerald-300 font-bold group-hover:text-emerald-200 transition-colors">
-                    Buka Viewer <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                    {t.hero.btnViewer} <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                 </a>
               </div>
            </div>
